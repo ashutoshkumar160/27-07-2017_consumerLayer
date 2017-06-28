@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>asmsgreceiver</name>
-	<description>ActivityStream - Receiver</description>
+	<description>ActivityStream - Message Receiver</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
