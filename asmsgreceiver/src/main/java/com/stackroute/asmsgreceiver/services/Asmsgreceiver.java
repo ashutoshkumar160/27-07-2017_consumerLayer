@@ -1,4 +1,6 @@
 package com.stackroute.asmsgreceiver.services;
+import java.util.ArrayList;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,19 @@ public class Asmsgreceiver {
 	@Autowired
 	private RouteCache rc;
 	
+	@Autowired
+	Asmsgsender producer;
+	
 	public void setRouteCache(RouteCache rc){
 		this.rc = rc;
 	}
 		
 	@KafkaListener(topics="${as.kafka.topic}")
     public void processMessage(AsMessage message) {
-		log.info("{} => MMDU => {}", message, this.rc.getMmdclist(message.getCirclename()));
+		ArrayList<String> mmduList = this.rc.getMmdclist(message.getCirclename());
+		log.info("{} => MMDU => {}", message, mmduList);
+		for(int index=0; index < mmduList.size(); index++) {
+			producer.send(mmduList.get(index), message);
+		}
 	}
 }

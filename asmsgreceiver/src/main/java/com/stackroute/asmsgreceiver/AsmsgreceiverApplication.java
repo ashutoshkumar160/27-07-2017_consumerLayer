@@ -12,7 +12,7 @@ public class AsmsgreceiverApplication implements CommandLineRunner {
 	
 	@Autowired
 	Asmsgreceiver consumer;
-
+	
 	@Override
 	public void run(String... args) throws Exception {
 		

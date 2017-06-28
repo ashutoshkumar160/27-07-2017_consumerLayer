@@ -1,13 +1,12 @@
-package com.stackroute.asmsgsender.services;
-
+package com.stackroute.asmsgreceiver.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.stackroute.asmsgsender.model.AsMessage;
+import com.stackroute.asmsgreceiver.model.AsMessage;
 
 @Service
 public class Asmsgsender {
@@ -17,12 +16,11 @@ public class Asmsgsender {
 	@Autowired
 	private KafkaTemplate<String, AsMessage> kafkaTemplate;
 	
-	@Value("${as.kafka.topic}")
-	String kafkaTopic = "as-level1";
+	//@Value("${as.kafka.topic}")
+	//String kafkaTopic = "as-mmdu1";
 	
-	public void send(AsMessage data) {
+	public void send(String topicName, AsMessage data) {
 	    log.info("sending data='{}'", data);
-	    
-	    kafkaTemplate.send(kafkaTopic, data);
+	    kafkaTemplate.send(topicName, data);
 	}
 }
